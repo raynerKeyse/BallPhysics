@@ -5,60 +5,39 @@
  */
 package ballphysics;
 import org.newdawn.slick.*;
-import org.newdawn.slick.geom.Line;
-import org.newdawn.slick.geom.Vector2f;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Platform extends Line{
-    Vector2f start = new Vector2f(0,0);
-    Vector2f end = new Vector2f(0,0);
+public class Platform extends Rectangle{
     Input input = new Input(1080);
     boolean drawing;
     boolean drawn;
-    public Platform(Vector2f start, Vector2f end) {
-        super(start, end);   
-    }
-
-    @Override
-    public Vector2f getStart() {
-        return start;
-    }
-
-    public void setStart(Vector2f start) {
-        
-        this.start = start;
-    }
-
-    @Override
-    public Vector2f getEnd() {
-        return end;
-    }
-
-    public void setEnd(Vector2f end) {
-        this.end = end;
+    public Platform(float x, float y, float width, float height) {
+        super(x, y, width, height);
     }
     
     public void update(GameContainer container, StateBasedGame game, int delta){
         if(input.isMouseButtonDown(0)&&!drawing){
             drawing = true;
-            start = (new Vector2f(input.getMouseX(),input.getMouseY()));
+            this.setX(input.getMouseX());
+            this.setY(input.getMouseY());
+            this.setHeight(1);
+        }
+        if(drawing&&input.isMouseButtonDown(0)){
+            System.out.println((float) Math.atan((input.getAbsoluteMouseY()-y)/(input.getAbsoluteMouseX()-x)));
         }
         if(input.isMouseButtonDown(0)){
-            end = (new Vector2f(input.getMouseX(),input.getMouseY()));
+            this.setWidth(input.getMouseX()-x);
         }
         if(drawing&&!input.isMouseButtonDown(0)){
             drawing = false;
         }
-        System.out.println(this.getPointCount());
+        
     }
     
     public void render(Graphics g){
-        g.setAntiAlias(true); 
-        g.drawLine(start.getX(),start.getY(),end.getX(),end.getY());
-        
+        g.drawRect(x, y, width, height);
         
     }
-    public void synthesize(int length, int velocity){
-        
-    }
+    
 } 

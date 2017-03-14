@@ -12,7 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class BallPhysics extends StateBasedGame {
     private static double GRAVITY = 20;
-    private static double DAMP = 0.7;
+    private static double DAMP = 0.8;
     private static int SCREEN_WIDTH = 1920;
     private static int SCREEN_HEIGHT = 1080;
     public static int getSCREEN_WIDTH() {
@@ -36,7 +36,7 @@ public class BallPhysics extends StateBasedGame {
             AppGameContainer appgc = new AppGameContainer(ballPhysics);
             appgc.setTargetFrameRate(60);
             appgc.setShowFPS(false);
-            appgc.setDisplayMode(SCREEN_WIDTH,SCREEN_HEIGHT,true);
+            appgc.setDisplayMode(SCREEN_WIDTH,SCREEN_HEIGHT,false);
             appgc.start();
         } catch (SlickException ex) {
             Logger.getLogger(BallPhysics.class.getName()).log(Level.SEVERE, null, ex);
